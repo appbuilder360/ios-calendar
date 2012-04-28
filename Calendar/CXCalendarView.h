@@ -18,6 +18,7 @@
 
 - (void) calendarView: (CXCalendarView *) calendarView
         didSelectDate: (NSDate *) selectedDate;
+-(CXCalendarCellView *)calendarViewCellForDate:(NSDate *)date withCell:(CXCalendarCellView *)cell;
 
 @end
 
@@ -72,5 +73,5 @@
 @property(assign) CGFloat weekBarHeight;
 
 - (CXCalendarCellView *) cellForDate: (NSDate *) date;
-
+-(void)loadDayCellColors;
 @end

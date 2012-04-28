@@ -137,12 +137,14 @@ static const CGFloat kDefaultMonthBarButtonWidth = 60;
     NSDateComponents *monthStep = [[NSDateComponents new] autorelease];
     monthStep.month = 1;
     self.displayedDate = [self.calendar dateByAddingComponents: monthStep toDate: self.displayedDate options: 0];
+    [self loadDayCellColors];
 }
 
 - (void) monthBack {
     NSDateComponents *monthStep = [[NSDateComponents new] autorelease];
     monthStep.month = -1;
     self.displayedDate = [self.calendar dateByAddingComponents: monthStep toDate: self.displayedDate options: 0];
+    [self loadDayCellColors];
 }
 
 - (void) reset {
@@ -166,6 +168,8 @@ static const CGFloat kDefaultMonthBarButtonWidth = 60;
     }
     return nil;
 }
+
+
 
 - (void) layoutSubviews {
     [super layoutSubviews];
@@ -329,8 +333,28 @@ static const CGFloat kDefaultMonthBarButtonWidth = 60;
             [self.gridView addSubview: cell];
         }
         _dayCells = [[NSArray alloc] initWithArray:cells];
+        [self loadDayCellColors];
+
+    }else {
+        [self loadDayCellColors];
     }
     return _dayCells;
+}
+
+-(void)loadDayCellColors {
+    NSDateComponents *components = [self.calendar components: NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit
+                                                    fromDate: self.displayedDate];
+    for (NSUInteger i = 0; i <= 30; ++i) {
+        if([delegate respondsToSelector:@selector(calendarViewCellForDate:withCell:)]) {
+           
+            [components setDay:i+1];
+            NSDate * theDate = [self.calendar dateFromComponents:components];
+            
+            [delegate calendarViewCellForDate:theDate withCell:[_dayCells objectAtIndex:i]];
+            theDate = nil;
+            [theDate release];
+        }
+    }
 }
 
 @end
