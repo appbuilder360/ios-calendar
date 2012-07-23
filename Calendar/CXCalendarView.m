@@ -159,6 +159,8 @@ static const CGFloat kDefaultMonthBarButtonWidth = 60;
 }
 
 - (CXCalendarCellView *) cellForDate: (NSDate *) date {
+    if(date != nil) {
+    
     NSDateComponents *components = [self.calendar components: NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit
                                                         fromDate: date];
     if (components.month == self.displayedMonth &&
@@ -167,6 +169,9 @@ static const CGFloat kDefaultMonthBarButtonWidth = 60;
         return [self.dayCells objectAtIndex: components.day - 1];
     }
     return nil;
+    } 
+        return nil;
+    
 }
 
 
@@ -342,6 +347,9 @@ static const CGFloat kDefaultMonthBarButtonWidth = 60;
 }
 
 -(void)loadDayCellColors {
+    
+    if(self.displayedDate != nil) {
+    
     NSDateComponents *components = [self.calendar components: NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit
                                                     fromDate: self.displayedDate];
     for (NSUInteger i = 0; i <= 30; ++i) {
@@ -354,6 +362,7 @@ static const CGFloat kDefaultMonthBarButtonWidth = 60;
             theDate = nil;
             [theDate release];
         }
+    }
     }
 }
 
