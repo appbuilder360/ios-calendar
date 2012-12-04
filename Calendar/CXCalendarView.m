@@ -328,7 +328,7 @@ static const CGFloat kDefaultMonthBarButtonWidth = 60;
             CXCalendarCellView *cell = [[CXCalendarCellView new] autorelease];
             cell.backgroundColor = [UIColor clearColor];
             [cell setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [cell setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
+            [cell setTitleColor:[UIColor blueColor] forState:UIControlStateSelected];
             cell.tag = i;
             cell.day = i;
             [cell addTarget: self
